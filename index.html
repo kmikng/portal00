@@ -4,23 +4,46 @@
 <head>
   <meta charset="UTF-8">
   <title>Kenji Portal</title>
-
+  <link rel="stylesheet" href="index.css">
   <script src="auth.js" defer></script>
 </head>
 
 <body>
-  <h1>Portal00</h1>
+  <div class="container">
+    <div class="glass-panel">
+      <!-- Clock Section -->
+      <div id="clock">00:00:00</div>
+      <div id="date-display">LOADING DATE...</div>
 
-  <div id="login">
-    <p>🔐 Login required</p>
-    <button onclick="login()">Login</button>
+      <h1>Kenji Portal</h1>
+
+      <div id="login" class="login-area">
+        <p style="margin-bottom: 1rem; color: #4b5563;">🔐 &nbsp;Secure Access Required</p>
+        <button class="btn" onclick="login()">Login</button>
+      </div>
+
+      <div id="content" style="display:none;" class="login-area">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Hello Kenji</h2>
+        <p style="color: #6b7280;">Welcome back to your workspace.</p>
+      </div>
+    </div>
   </div>
 
-  <div id="content" style="display:none;">
-    <h2>Hello Kenji</h2>
-    <p>It works. Next: real GitHub OAuth.</p>
-    <p>It works.</p>
-  </div>
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      // Update Time
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', timeOptions);
+
+      // Update Date
+      const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+      document.getElementById('date-display').textContent = now.toLocaleDateString('ja-JP', dateOptions);
+    }
+    setInterval(updateClock, 1000);
+    document.addEventListener("DOMContentLoaded", updateClock);
+  </script>
 </body>
 
 </html>

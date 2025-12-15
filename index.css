@@ -1,20 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
 :root {
-  /* Premium Light Mode Palette */
-  --bg-primary: #F9FAFB; /* Cool Gray 50 */
-  --bg-surface: #FFFFFF; /* White */
-  --text-primary: #111827; /* Gray 900 */
-  --text-secondary: #4B5563; /* Gray 600 */
-  --brand-primary: #4F46E5; /* Indigo 600 */
-  --brand-hover: #4338CA; /* Indigo 700 */
-  --danger: #EF4444; /* Red 500 */
-  
-  /* Shadows & Radius */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --radius-md: 0.75rem;
-  
-  /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --bg-gradient-start: #f3f4f6;
+  --bg-gradient-end: #e5e7eb;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --accent-color: #6366f1;
+  /* Indigo */
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
 }
 
 * {
@@ -24,102 +19,100 @@
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top left, #e0e7ff, transparent 40%),
+    radial-gradient(circle at bottom right, #fae8ff, transparent 40%),
+    var(--bg-gradient-start);
+  color: var(--text-main);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  overflow: hidden;
+  /* Prevent scroll for the "app" feel */
 }
 
-/* Layout Utilities */
 .container {
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
+  padding: 2rem;
+  perspective: 1000px;
 }
 
-/* Card Component */
-.card {
-  background-color: var(--bg-surface);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
-  padding: 2.5rem;
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  border: 1px solid rgba(0,0,0,0.05);
-  animation: fadeIn 0.6s ease-out;
+  animation: floatIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  opacity: 0;
+  /* Start hidden for animation */
+  transform: translateY(20px);
 }
 
-/* Typography */
-h1 {
-  font-size: 1.875rem;
-  font-weight: 700;
-  color: var(--text-primary);
+/* Clock Styles */
+#clock {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
 }
 
-h2 {
-  font-size: 1.5rem;
+#date-display {
+  font-size: 1rem;
+  color: var(--text-muted);
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
-p {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
+h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  opacity: 0.8;
 }
 
-/* Login specific text */
-.login-message {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+/* Login Area */
+.login-area {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Buttons */
 .btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--brand-primary);
+  background: var(--accent-gradient);
   color: white;
-  font-weight: 500;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
   border: none;
-  cursor: pointer;
-  width: 100%;
+  padding: 1rem 3rem;
   font-size: 1rem;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
 }
 
 .btn:hover {
-  background-color: var(--brand-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgb(79 70 229 / 0.2);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: translateY(1px);
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
+@keyframes floatIn {
   to {
     opacity: 1;
     transform: translateY(0);
