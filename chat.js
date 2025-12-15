@@ -45,3 +45,36 @@ async function sendPrompt() {
 function checkApiKey() { }
 function saveApiKey() { }
 function clearApiKey() { }
+
+// Map Logic
+function updateLocation() {
+    const btn = document.getElementById("update-loc-btn");
+    const iframe = document.getElementById("map-iframe");
+
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser");
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Locating... 🛰️";
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            // Legacy embed format: maps.google.com/maps?q=lat,lon&z=15&output=embed
+            iframe.src = `https://maps.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
+
+            btn.textContent = "Location Updated 📍";
+            btn.disabled = false;
+        },
+        (error) => {
+            console.error("Error getting location:", error);
+            alert("Unable to retrieve your location. Please check browser permissions.");
+            btn.textContent = "Update Location 📍";
+            btn.disabled = false;
+        }
+    );
+}
